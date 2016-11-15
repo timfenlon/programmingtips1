@@ -5,6 +5,7 @@ SRC= src/linkedlist.h \
      src/logging.h \
      src/logging.c \
      src/main.c
+
 TARGET=linkedlist
 
 # C Make File
