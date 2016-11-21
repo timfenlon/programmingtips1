@@ -1,7 +1,7 @@
 # add headers and source files
 #SET (${PROJECT_NAME}_h main.h)
 #SET (${PROJECT_NAME}_src main.c)
-SET(proj-src logging.h logging.c linkedlist.h)
+SET(proj-src logging.h logging.c linkedlist.h linkedlist.c)
 
 # Create the executable
 # -----------------
