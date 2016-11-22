@@ -1,0 +1,13 @@
+rm -rf build/CMakeCache.txt
+rm -rf build/CMakeFiles/*
+rm -rf build/CmakeFiles/
+rm -rf build/cmake_install.cmake
+rm -rf build/Makefile
+rm -rf build/src/*
+rm -rf build/src
+rm -rf html/*
+rm -rf latex/*
+rm -rf html/
+rm -rf latex/
+rm -rf build/linkedlist1.cbp
+rm -rf build/linkedlist1.layout

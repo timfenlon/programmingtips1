@@ -1,4 +1,4 @@
-/*! \file */ 
+/*! \file */
 /*
  * @file main.c
  * @author Copyright (C) 2016 by Tim Fenlon
@@ -17,9 +17,9 @@
 
 #include "linkedlist.h"
 
- //Define some constants for char sizes
-extern const int MAX_TITLE_LENGTH = 256;
-extern const int MAX_INPUT_LENGTH = 256;
+//Define some constants for char sizes
+const int MAX_TITLE_LENGTH = 256;
+const int MAX_INPUT_LENGTH = 256;
 
  /**
  * @brief prints out a menu for our program
@@ -32,8 +32,14 @@ extern const int MAX_INPUT_LENGTH = 256;
 void printMenu(const char* title, uint32_t menuVersion, NodeList* theList)
 {
 	printf("\nMenu Title %s version %d\n", title, menuVersion);
-	printf("We have created %llu nodes\n", theList->numNodes);
-	printf("Which operation do you want to perform?\n");
+	#if defined(TARGET_WIN32)
+        printf("We have created %llu nodes\n", theList->numNodes);
+    #elif defined(TARGET_UNIX)
+        printf("We have created %lu nodes\n", theList->numNodes);
+    #elif defined(TARGET_OSX)
+        printf("We have created %lu nodes\n", theList->numNodes);
+    #endif
+    printf("Which operation do you want to perform?\n");
 	printf("1. Insert a certain number of randomly generated List Nodes\n");
 	printf("2. Print LinkedList Nodes\n");
 	printf("3. Recursive Print LinkedList Nodes\n");
@@ -82,7 +88,7 @@ void printHelp()
  *
  * @return int if success return value is 0
  */
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
 	char menuTitle[256];
 	memset(menuTitle, '\0', MAX_TITLE_LENGTH);
@@ -144,7 +150,13 @@ int main(int argc, char *argv[])
 	do
 	{
 		printMenu(menuTitle, menuVersion, &aList);
-		retVal = scanf_s("%s", menuInput, (unsigned)_countof(menuInput));
+        #if defined(TARGET_WIN32)
+            retVal = scanf_s("%s", menuInput, (unsigned)_countof(menuInput));
+        #elif defined(TARGET_UNIX)
+            retVal = scanf("%s", menuInput);
+        #elif defined(TARGET_OSX)
+            retVal = scanf("%s", menuInput);
+        #endif
 		if (retVal <= 0)
 		{
 			printMenuHelp();
