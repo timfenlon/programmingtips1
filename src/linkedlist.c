@@ -17,11 +17,11 @@ int	createNumRandomNodes(NodeList* node_list)
 
 	printf("Enter number of nodes to create?: ");
     #if defined(TARGET_WIN32)
-        retVal = scanf_s("%d", &iNumNodes);
+		result = scanf_s("%d", &iNumNodes);
     #elif defined(TARGET_UNIX)
-        result = scanf("%d", &iNumNodes);
+		result = scanf("%d", &iNumNodes);
     #elif defined(TARGET_OSX)
-        result = scanf("%d", &iNumNodes);
+		result = scanf("%d", &iNumNodes);
     #endif
 	if (result == EOF)
 	{
