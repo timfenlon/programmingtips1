@@ -90,6 +90,8 @@ void printHelp()
  */
 int main(int argc, char *argv[])
 {
+	uint32_t exitProgram = 0;//false
+
 	char menuTitle[256];
 	memset(menuTitle, '\0', MAX_TITLE_LENGTH);
 
@@ -112,41 +114,47 @@ int main(int argc, char *argv[])
 		if (argv[i][0] == '-') {
 			if (argv[i][1] == 'v')
 			{
-				if (argc > i) {
+				if (argc > (i+1)) {
   					menuVersion = atoi(argv[++i]);
 					continue;
 				}
 				else {
 					printHelp();
-					return -1;
+					exitProgram = 1;//true
+					break;
 				}
-			}
-			if (argv[i][1] == 'm')
+			} else if (argv[i][1] == 'm')
+			{
 				//NOTE: -m or -menu are okay values
-				if (argc > i) {
+				if (argc > (i + 1)) {
 					i++;
-					memcpy(menuTitle, argv[i],( (strlen(argv[i]) < MAX_TITLE_LENGTH) ? strlen(argv[i]): MAX_TITLE_LENGTH));
+					memcpy(menuTitle, argv[i], ((strlen(argv[i]) < MAX_TITLE_LENGTH) ? strlen(argv[i]) : MAX_TITLE_LENGTH));
 					continue;
 				}
 				else {
 					printHelp();
-					return -1;
+					exitProgram = 1;//true
+					break;
 				}
-			else
-			{
+			}
+			else {
 				printHelp();
-				return -1;
+				exitProgram = 1;//true
+				break;
 			}
 		}
 	}
 
+	if (exitProgram)
+	{
+		return -1;
+	}
 	/* In (ANSI) C99, you can use a designated initializer to initialize a structure
 	* Initialize linkedlistnodes */
 	NodeList aList = { .head = NULL,.tail = NULL,.numNodes = 0 };
 	int retVal = 0;/**< evaluates function return values >= 1 success or <= 0 failed*/
 	int menuIntInput = 0;/**< evaluates scanf_s for integer*/
 
-	uint32_t exitProgram = 0;
 	do
 	{
 		printMenu(menuTitle, menuVersion, &aList);
